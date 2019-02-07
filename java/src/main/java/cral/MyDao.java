@@ -12,6 +12,9 @@ public class MyDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    public MyDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     void save(MyEntity myEntity) {
         Session session = sessionFactory.openSession();
@@ -22,6 +25,11 @@ public class MyDao {
         String enumValue = (String) session.createNativeQuery("select myEnum from MyEntity").list().get(0);
         System.out.println(enumValue);
         session.close();
+    }
+
+    MyEntity find(Long id) {
+        Session session = sessionFactory.openSession();
+        return session.find(MyEntity.class,id);
     }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 @EnableAutoConfiguration
 public class Main {
 
+    public static final long AN_ID = 1L;
     @Autowired
     private MyDao myDao;
 
@@ -23,13 +24,13 @@ public class Main {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-            cral.MyEntity myEntity = new cral.MyEntity();
-            myEntity.setId(1);
+            MyEntity myEntity = new MyEntity();
+            myEntity.setId(AN_ID);
             myEntity.setTest("aValue");
             myEntity.setMyEnum(MyEnum._001);
             myDao.save(myEntity);
-            System.out.println();
-
+            MyEntity persistedEntity = myDao.find(AN_ID);
+            System.out.println("Persisted entity: " + persistedEntity);
         };
     }
 
@@ -57,6 +58,7 @@ public class Main {
         public void setValue(String value) {
             this.value = value;
         }
+
 
     }
 
