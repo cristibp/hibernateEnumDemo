@@ -25,6 +25,7 @@ public class MyDao {
         String enumValue = (String) session.createNativeQuery("select myEnum from MyEntity").list().get(0);
         System.out.println(enumValue);
         session.close();
+
     }
 
     MyEntity find(Long id) {
